@@ -1,6 +1,7 @@
 import React,{useState, useEffect, useRef} from 'react';
 import NewStudent from '../components/students/newStudent/newStudent';
 import {useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const AddStudent = (props)=>{
   useEffect(()=>{
       console.log(props);
@@ -11,6 +12,7 @@ const AddStudent = (props)=>{
   const[studentPhoneNumber,setStudentPhoneNumber] = useState('');
   const [studentEmail,setStudentEmail] = useState('');
   const[result,setResult] = useState(false);
+  const[error,setError]= useState(false);
   const studentNameHandler=(event)=>{
     setStudentName(event.target.value)
   }
@@ -24,18 +26,31 @@ const AddStudent = (props)=>{
     setStudentEmail(event.target.value);
   }
   const addStudent=()=>{
-    alert('student added');
-   
-    //props.history.push('/');
-    // props.history.replace('/');
+    const data={
+      title:'foo',
+      body:'bar',
+      userId: 1
+    }
+    axios.post('/posts',data)
+    .then(response=>{
+      console.log(response)
+    }).catch(error=>{
+      setError(true)
+      console.log(error)
+    })
     setResult(true)
   }
     let redirecting = null;
-    if(result){
-    navigate(`/`, { replace: true }); // <-- redirect
+    // if(result){
+    // navigate(`/`, { replace: true }); // <-- redirect
+    // }
+    let ErrorMessage = null;
+    if(error){
+      ErrorMessage = <h1 style={{textAlign:'center',color:'red'}}>seem error please try again</h1>
     }
     return(
       <React.Fragment>
+        {ErrorMessage}
         {redirecting}
         <NewStudent
         studentName={studentName}

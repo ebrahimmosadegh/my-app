@@ -16,9 +16,10 @@ const Students = (props) => {
             classNumber={student.classNumber}
             phoneNumber={student.phoneNumber}
             email={student.email}
+            score={student.score}
             nameChanged={(event) => props.nameChanged(event, student.id)}
             classChanged={(event) => props.classChanged(event, student.id)}
-            deleted={props.deleted}
+            deleted={()=>props.deleted(student.id)}
             edited={()=>{props.edited(student.id)}}
         />
     )

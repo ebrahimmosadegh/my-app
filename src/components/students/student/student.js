@@ -23,6 +23,7 @@ const Student=(props)=>{
             <label>email: {props.email}</label>
             <input type="email" defaultValue={props.email} />
 
+            <label>score: {props.score}</label>
             <label>
             <Button
                 btnType="danger"

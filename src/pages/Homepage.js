@@ -2,6 +2,8 @@ import React,{useState, useEffect, useRef} from 'react';
 import Students from '../components/students/students';
 import Button from '../components/UI/button/button';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/UI/spinner/spinner';
+import axios from 'axios';
 const HomePage = (props)=>{
     const inputEl = useRef(null);
     const [searchBarValue,setSearchBarValue] = useState('');
@@ -13,6 +15,8 @@ const HomePage = (props)=>{
       ]);
     const [arrayHolder,setArrayHolder] = useState([]);
     const[toggle,setToggle]=useState(false);
+    const[loading,setLoading]= useState(false);
+    
     const searchFilterFunction=(event)=>{
         const itemData = arrayHolder.filter((item)=>{
         const itemData = item.name.toUpperCase();
@@ -28,6 +32,20 @@ const HomePage = (props)=>{
         setArrayHolder(studentsState);
         inputEl.current.focus();
         // console.log(props);
+        setLoading(true)
+        axios.get('/posts')
+        .then(response=>{
+          console.log(response.data)
+          const students = response.data.slice(0,3);
+          const updatedStudents = students.map(student=>{
+            return{
+              ...student,
+              score:20
+            }
+          })
+           setStudents(updatedStudents);
+           setLoading(false)
+        })
       },[])
       const nameChangeHandler=(event,id)=>{
         const studentIndex = studentsState.findIndex(student=>{
@@ -41,9 +59,14 @@ const HomePage = (props)=>{
         students[studentIndex]=student;
         setStudents(students);
       }
-      const deleteStudent=(index)=>{
+      const deleteStudent=(id)=>{
         const students=[...studentsState];
-        students.splice(index,1);
+        students.splice((id),1);
+        axios.delete(`/posts/${id}`)
+        .then(response=>{
+            console.log(response)
+        })
+        console.log(id)
         setStudents(students)
       }
       const toggleHandler=()=>{
@@ -65,14 +88,18 @@ const HomePage = (props)=>{
                 >
                     diffrent show 
             </Button>
-            <Students
+            {
+              loading ?<Spinner />:
+              <Students
                 studentsList={studentsState}
                 nameChanged={nameChangeHandler}
                 deleted={deleteStudent}
                 toggle={toggle}
                 edited={edited}
             />
+            }
+            
         </React.Fragment>
     )
 }
-export default HomePage;
+export default React.memo(HomePage);
