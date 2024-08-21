@@ -1,12 +1,17 @@
-import React,{useState, useEffect, useRef} from 'react';
+import React,{useState, useEffect, useContext} from 'react';
 import NewStudent from '../components/students/newStudent/newStudent';
 import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/Auth/authContext';
 const AddStudent = (props)=>{
-  useEffect(()=>{
-      console.log(props);
-  },[])
   const navigate = useNavigate();
+  const {authenticated} = useContext(AuthContext);
+  useEffect(()=>{
+      if(!authenticated){
+        navigate(`/`, { replace: true });
+      }
+  },[])
+  
   const[studentName,setStudentName]= useState('');
   const[studentClass,setStudentClass] = useState('');
   const[studentPhoneNumber,setStudentPhoneNumber] = useState('');

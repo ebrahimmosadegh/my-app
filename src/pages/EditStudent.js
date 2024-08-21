@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Button from "../components/UI/button/button";
 import './style/editStudent.css';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from '../context/Auth/authContext';
 const EditStudent = (props)=>{
+    const navigate = useNavigate();
+    const {authenticated} = useContext(AuthContext);
     const useparamValue = useParams();
     const { id } = useparamValue;
     useEffect(()=>{
-        console.log(id);
+        if(!authenticated){
+            navigate(`/`, { replace: true });
+          }
         axios.get(`/posts/${id}`)
         .then(response=>{
             console.log(response.data)

@@ -9,3 +9,26 @@ input{
     box-sizing: border-box;
     margin: 10px auto;
 }
+.captcha_view{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    width: 90%;
+}
+.captcha_view img{
+width: 42px;
+height: 42px;
+margin: 5px;
+}
+.captcha_view input{
+    width: 70%;
+}
+.captcha_view p{
+    direction: ltr;
+    font-size: 22px;
+    text-align: center;
+    color: black;
+}

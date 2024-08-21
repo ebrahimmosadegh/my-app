@@ -1,10 +1,13 @@
-import React,{useState, useEffect, useRef} from 'react';
+import React,{useState, useEffect, useRef, useContext} from 'react';
 import Students from '../components/students/students';
 import Button from '../components/UI/button/button';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/UI/spinner/spinner';
-import axios from 'axios';
+import ErrorHandler from '../components/hoc/ErrorHandler';
+import { AuthContext } from '../context/Auth/authContext';
+import axios from '../axios';
 const HomePage = (props)=>{
+    const {authenticated} = useContext(AuthContext);
     const inputEl = useRef(null);
     const [searchBarValue,setSearchBarValue] = useState('');
     const[studentsState,setStudents]=useState([
@@ -60,6 +63,11 @@ const HomePage = (props)=>{
         setStudents(students);
       }
       const deleteStudent=(id)=>{
+        if(!authenticated){
+          alert('not allow this ')
+          return false;
+        }
+        else{
         const students=[...studentsState];
         students.splice((id),1);
         axios.delete(`/posts/${id}`)
@@ -68,6 +76,8 @@ const HomePage = (props)=>{
         })
         console.log(id)
         setStudents(students)
+        }
+        
       }
       const toggleHandler=()=>{
         // console.log(toggle)
@@ -103,3 +113,4 @@ const HomePage = (props)=>{
     )
 }
 export default React.memo(HomePage);
+// export default React.memo(ErrorHandler(HomePage));

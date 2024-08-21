@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
+import ThemeContextProvider from './context/Theme/themeContext';
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -23,9 +24,11 @@ axios.interceptors.response.use(response=>{
 })
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <ThemeContextProvider>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </ThemeContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
