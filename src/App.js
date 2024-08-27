@@ -7,6 +7,7 @@ import EditStudent from './pages/EditStudent';
 import React, { lazy,Suspense, useState, useContext } from 'react';
 import AuthContextProvider from './context/Auth/authContext';
 import { ThemeContext } from './context/Theme/themeContext';
+import StudentsContextProvider from './context/Students/studentsContext';
 const AddStudent = React.lazy(()=>import('./pages/AddStudent'));
 const App = () => {
 // const navigated = useNavigate();
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <BrowserRouter>
     <AuthContextProvider >
+      <StudentsContextProvider>
     <div className="App" style={{background:theme.bg,color:theme.syntax}}>
       <SideDrawer />
       <Toolbar />
@@ -33,6 +35,7 @@ const App = () => {
    </Routes>
     </div>
     </div>
+    </StudentsContextProvider>
     </AuthContextProvider>
     
    </BrowserRouter>

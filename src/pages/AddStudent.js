@@ -31,24 +31,49 @@ const AddStudent = (props)=>{
     setStudentEmail(event.target.value);
   }
   const addStudent=()=>{
-    const data={
-      title:'foo',
-      body:'bar',
-      userId: 1
+    fetch('http://localhost/student/insertStudent.php',{
+      method:'POST',
+      headers:{
+        'Accept' : 'application/json',
+        'Content-Type' : 'application/json',
+      },
+      body:JSON.stringify({
+        student_name:studentName,
+        studet_class:studentClass,
+        student_phone_number:studentPhoneNumber,
+        student_email:studentEmail
+      })
+    }).then((response)=>response.json())
+      .then((responseJson)=>{
+        navigate(`/`, { replace: true }); // <-- redirect
+        // if(responseJson==='succesfull'){
+        //   navigate(`/`, { replace: true }); // <-- redirect
+        // }
+        // else{
+        //   setError(responseJson)
+        // }
+      }).catch((error)=>{
+        setError(error)
+      })
     }
-    axios.post('/posts',data)
-    .then(response=>{
-      console.log(response)
-    }).catch(error=>{
-      setError(true)
-      console.log(error)
-    })
-    setResult(true)
-  }
-    let redirecting = null;
-    // if(result){
-    // navigate(`/`, { replace: true }); // <-- redirect
+    // const data={
+    //   title:'foo',
+    //   body:'bar',
+    //   userId: 1
     // }
+    // axios.post('/posts',data)
+    // .then(response=>{
+    //   console.log(response)
+    // }).catch(error=>{
+    //   setError(true)
+    //   console.log(error)
+    // })
+    // setResult(true)
+  // }
+    let redirecting = null;
+    if(result){
+    navigate(`/`, { replace: true }); // <-- redirect
+    }
     let ErrorMessage = null;
     if(error){
       ErrorMessage = <h1 style={{textAlign:'center',color:'red'}}>seem error please try again</h1>
@@ -56,7 +81,7 @@ const AddStudent = (props)=>{
     return(
       <React.Fragment>
         {ErrorMessage}
-        {redirecting}
+        {/* {redirecting} */}
         <NewStudent
         studentName={studentName}
         studentClass={studentClass}

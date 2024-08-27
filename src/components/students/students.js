@@ -11,16 +11,14 @@ const Students = (props) => {
         props.studentsList.map((student, index) =>
         <Student
             key={index}
-            id={student.id}
-            name={student.name}
-            classNumber={student.classNumber}
-            phoneNumber={student.phoneNumber}
-            email={student.email}
-            score={student.score}
-            nameChanged={(event) => props.nameChanged(event, student.id)}
+            id={student.student_id}
+            name={student.student_name}
+            classNumber={student.student_class}
+            phoneNumber={student.student_phone_number}
+            email={student.student_email}
             classChanged={(event) => props.classChanged(event, student.id)}
-            deleted={()=>props.deleted(student.id)}
-            edited={()=>{props.edited(student.id)}}
+            deleted={()=>props.deleted(student.student_id)}
+            edited={()=>{props.edited(student.student_id, student.student_name, student.student_class, student.student_phone_number, student.student_email)}}
         />
     )
 

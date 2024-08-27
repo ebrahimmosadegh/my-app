@@ -12,18 +12,17 @@ const Student=(props)=>{
         <div className="students">
             <label>student number: {props.id}</label>
             <label>name and family: {props.name}</label>
-            <input type="text" value={props.name} onChange={props.nameChanged} />
+            {/* <input type="text" value={props.name} onChange={props.nameChanged} /> */}
 
             <label>class: {props.classNumber}</label>
-            <input type="text" value={props.classNumber} onChange={props.classChanged} />
+            {/* <input type="text" value={props.classNumber} onChange={props.classChanged} /> */}
 
             <label>call number: {props.phoneNumber}</label>
-            <input type="number" defaultValue={props.phoneNumber} />
+            {/* <input type="number" defaultValue={props.phoneNumber} /> */}
 
             <label>email: {props.email}</label>
-            <input type="email" defaultValue={props.email} />
+            {/* <input type="email" defaultValue={props.email} /> */}
 
-            <label>score: {props.score}</label>
             <label>
             <Button
                 btnType="danger"

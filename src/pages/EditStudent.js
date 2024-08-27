@@ -1,37 +1,72 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Button from "../components/UI/button/button";
 import './style/editStudent.css';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from '../context/Auth/authContext';
 const EditStudent = (props)=>{
     const navigate = useNavigate();
+    const { state } = useLocation();
     const {authenticated} = useContext(AuthContext);
     const useparamValue = useParams();
     const { id } = useparamValue;
-    useEffect(()=>{
-        if(!authenticated){
-            navigate(`/`, { replace: true });
-          }
-        axios.get(`/posts/${id}`)
-        .then(response=>{
-            console.log(response.data)
-        })
-    },[id])
+    // useEffect(()=>{
+    //     if(!authenticated){
+    //         navigate(`/`, { replace: true });
+    //       }
+    //     axios.get(`/posts/${id}`)
+    //     .then(response=>{
+    //         console.log(response.data)
+    //     })
+    // },[id])
+    // console.log(props.location.state)
+//   console.log(state);
+    const {studentId,name,classNumber,phoneNumber,email}= state;
+    const[student_name,setName]= useState(name);
+    const[student_classNumber,setNumber] = useState(classNumber);
+    const[student_phoneNumber,setPhoneNumber] = useState(phoneNumber);
+    const[student_email,setEmail] = useState(email);
+    const[message,setMessage]= useState('');
+
     const editStudent = ()=>{
-        alert('success')
+       fetch('http://localhost/student/updateStudent.php',{
+        method:'POST',
+        headers:{
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+        },
+        body:JSON.stringify({
+            student_id:studentId,
+            student_name:student_name,
+            student_class:student_classNumber,
+            student_phone_number:student_phoneNumber,
+            student_email:student_email
+        })
+       }).then((response)=>response.json())
+        .then((responseJson)=>{
+            if(responseJson==='successfull'){
+                console.log('submit')
+                // navigate(`/`, { replace: true });
+            }
+            else{
+                setMessage(responseJson)
+            }
+        }).catch((error)=>{
+            setMessage(error)
+        })
     }
     return(
         <div className="NewPost">
             <h1>Edit Student</h1>
+            <h2>{message}</h2>
             <label>name and family:</label>
-            <input type="text"  />
+            <input type="text" value={student_name} onChange={(event)=>setName(event.target.value)} />
             <label>class:</label>
-            <input type="number" />
+            <input type="number" value={student_classNumber} onChange={(event)=>setNumber(event.target.value)} />
             <label>call number:</label>
-            <input type="number"  />
+            <input type="number" value={student_phoneNumber} onChange={(event)=>setPhoneNumber(event.target.value)} />
             <label>email:</label>
-            <input type="email"  />
+            <input type="email" value={student_email} onChange={(event)=>setEmail(event.target.value)} />
             <Button clicked={editStudent} btnType="danger">save</Button>
         
         </div>

@@ -1,4 +1,5 @@
 import React,{useState,useContext} from "react";
+import { useNavigate } from "react-router";
 import './Toolbar.css';
 import Logo from "../../../components/logo/logo";
 import MenuItems from "../MenuItems/MenuItems";
@@ -10,6 +11,7 @@ import {AuthContext} from "../../../context/Auth/authContext";
 import { ThemeContext } from "../../../context/Theme/themeContext";
 
 const Toolbar=(props)=>{
+    const navigate = useNavigate();
     const [showModal,setShowModal] = useState(false)
     const [openSideDrawer,setOpenSideDrawer] = useState(false);
     const authContext = useContext(AuthContext)
@@ -31,6 +33,7 @@ const Toolbar=(props)=>{
     }
     const logout = ()=>{
         authContext.dispatch({type:'logout'});
+        navigate(`/`, { replace: true });
     }
     const themeHandler=()=>{
         themeContext.changeTheme();
