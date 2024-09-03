@@ -39,7 +39,7 @@ const AddStudent = (props)=>{
       },
       body:JSON.stringify({
         student_name:studentName,
-        studet_class:studentClass,
+        student_class:studentClass,
         student_phone_number:studentPhoneNumber,
         student_email:studentEmail
       })

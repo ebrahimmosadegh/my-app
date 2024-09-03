@@ -103,7 +103,7 @@ const HomePage = (props)=>{
               }
           }
         );
-      }
+      };
     return(
         <React.Fragment>
             <input type="text" value={searchBarValue} onChange={searchFilterFunction} className="search-bar" ref={inputEl} style={{marginTop:'70px'}} />

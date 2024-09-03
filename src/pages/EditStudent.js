@@ -9,7 +9,7 @@ const EditStudent = (props)=>{
     const { state } = useLocation();
     const {authenticated} = useContext(AuthContext);
     const useparamValue = useParams();
-    const { id } = useparamValue;
+    // const { id } = useparamValue;
     // useEffect(()=>{
     //     if(!authenticated){
     //         navigate(`/`, { replace: true });
@@ -21,39 +21,41 @@ const EditStudent = (props)=>{
     // },[id])
     // console.log(props.location.state)
 //   console.log(state);
-    const {studentId,name,classNumber,phoneNumber,email}= state;
-    const[student_name,setName]= useState(name);
-    const[student_classNumber,setNumber] = useState(classNumber);
-    const[student_phoneNumber,setPhoneNumber] = useState(phoneNumber);
-    const[student_email,setEmail] = useState(email);
-    const[message,setMessage]= useState('');
+// const {id,name,classNumber,phoneNumber,email} = state;
+console.log(state.classNumber)
+const[student_name,setName] = useState(state.name);
+const[student_classNumber,setNumber] = useState(state.classNumber);
+const[student_phoneNumber,setPhoneNumber] = useState(state.phoneNumber);
+const[student_email,setEmail] = useState(state.email);
+const [message,setMessage]= useState('');
+
 
     const editStudent = ()=>{
-       fetch('http://localhost/student/updateStudent.php',{
-        method:'POST',
-        headers:{
-            'Accept' : 'application/json',
-            'Content-Type' : 'application/json',
-        },
-        body:JSON.stringify({
-            student_id:studentId,
-            student_name:student_name,
-            student_class:student_classNumber,
-            student_phone_number:student_phoneNumber,
-            student_email:student_email
-        })
-       }).then((response)=>response.json())
-        .then((responseJson)=>{
-            if(responseJson==='successfull'){
-                console.log('submit')
-                // navigate(`/`, { replace: true });
-            }
-            else{
-                setMessage(responseJson)
-            }
-        }).catch((error)=>{
-            setMessage(error)
-        })
+        fetch('http://localhost/student/updateStudent.php',{
+            method:'POST',
+            headers:{
+                'Accept' : 'applicaion/json',
+                'Content-Type':'application/json',
+            },
+            body:JSON.stringify({
+                student_id:state.id,
+                student_name:student_name,
+                studet_class:student_classNumber,
+                student_phone_number:student_phoneNumber,
+                student_email:student_email
+            })
+        }).then((response)=>response.json())
+            .then((responseJson)=>{
+                if(responseJson==='succefull'){
+                    props.history.replace('/')
+                }
+                else{
+                    setMessage(responseJson)
+                }
+            }).catch((error)=>{
+                setMessage(error)
+            })
+       
     }
     return(
         <div className="NewPost">
