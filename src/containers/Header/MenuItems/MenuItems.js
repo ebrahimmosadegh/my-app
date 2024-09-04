@@ -17,6 +17,9 @@ const MenuItems = ()=>{
           }>
             add student 
           </MenuItem>
+          <MenuItem link="/transition">
+          CSS TRANSITION
+          </MenuItem>
         </ul>
     )
 }

@@ -21,12 +21,12 @@ const EditStudent = (props)=>{
     // },[id])
     // console.log(props.location.state)
 //   console.log(state);
-// const {id,name,classNumber,phoneNumber,email} = state;
-console.log(state.classNumber)
-const[student_name,setName] = useState(state.name);
-const[student_classNumber,setNumber] = useState(state.classNumber);
-const[student_phoneNumber,setPhoneNumber] = useState(state.phoneNumber);
-const[student_email,setEmail] = useState(state.email);
+const {id,name,classNumber,phoneNumber,email} = state;
+// console.log(state.classNumber)
+const[student_name,setName] = useState(name);
+const[student_classNumber,setNumber] = useState(classNumber);
+const[student_phoneNumber,setPhoneNumber] = useState(phoneNumber);
+const[student_email,setEmail] = useState(email);
 const [message,setMessage]= useState('');
 
 
@@ -34,11 +34,12 @@ const [message,setMessage]= useState('');
         fetch('http://localhost/student/updateStudent.php',{
             method:'POST',
             headers:{
-                'Accept' : 'applicaion/json',
+                'Accept' : 'application/json',
                 'Content-Type':'application/json',
             },
-            body:JSON.stringify({
-                student_id:state.id,
+            body:
+            JSON.stringify({
+                student_id:id,
                 student_name:student_name,
                 studet_class:student_classNumber,
                 student_phone_number:student_phoneNumber,
@@ -52,10 +53,11 @@ const [message,setMessage]= useState('');
                 else{
                     setMessage(responseJson)
                 }
-            }).catch((error)=>{
+            })
+            .catch((error)=>{
+                console.log('state');
                 setMessage(error)
             })
-       
     }
     return(
         <div className="NewPost">
@@ -70,7 +72,6 @@ const [message,setMessage]= useState('');
             <label>email:</label>
             <input type="email" value={student_email} onChange={(event)=>setEmail(event.target.value)} />
             <Button clicked={editStudent} btnType="danger">save</Button>
-        
         </div>
     )
 }
