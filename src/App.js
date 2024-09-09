@@ -8,6 +8,9 @@ import React, { lazy,Suspense, useState, useContext } from 'react';
 import AuthContextProvider from './context/Auth/authContext';
 import { ThemeContext } from './context/Theme/themeContext';
 import StudentsContextProvider from './context/Students/studentsContext';
+import Transition from './components/animation/transition';
+import Animation from './components/animation/animation';
+import Mixtransition from './components/animation/mixtransition';
 const AddStudent = React.lazy(()=>import('./pages/AddStudent'));
 const App = () => {
 // const navigated = useNavigate();
@@ -32,6 +35,9 @@ const App = () => {
       )} 
       />
       <Route path="/student/:id" Component={EditStudent} />
+      <Route path="/transition" Component={Transition} />
+      <Route path="/animation" Component={Animation} />
+      <Route path="/reactjs+csstransition" exact Component={Mixtransition} />
    </Routes>
     </div>
     </div>

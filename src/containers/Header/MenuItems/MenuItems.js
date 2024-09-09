@@ -20,6 +20,12 @@ const MenuItems = ()=>{
           <MenuItem link="/transition">
           CSS TRANSITION
           </MenuItem>
+          <MenuItem link="/animation">
+          ANIMATION
+          </MenuItem>
+          <MenuItem link="/reactjs+csstransition">
+          Reactjs + Csstransition
+          </MenuItem>
         </ul>
     )
 }
