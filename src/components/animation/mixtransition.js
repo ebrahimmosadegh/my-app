@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import './animation.css';
 import Button from "../UI/button/button";
-import {CSSTransitionGroup} from 'react-transition-group';
+// import {CSSTransitionGroup} from 'react-transition-group';
 const Mixtransition=()=>{
     const[items,setItems] =useState([
         {
@@ -25,7 +25,7 @@ const Mixtransition=()=>{
         <Button btnType="danger" clicked={addItem}>
             ADD ITEM
         </Button>
-        <CSSTransitionGroup transitionName="example"
+        {/* <CSSTransitionGroup transitionName="example"
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
         {
@@ -37,7 +37,7 @@ const Mixtransition=()=>{
                 )
             })
         }
-        </CSSTransitionGroup>
+        </CSSTransitionGroup> */}
        </div>
     )
 }

@@ -11,4 +11,6 @@ it('renders data',async ()=>{
     expect(getByTestId("loading")).toHaveTextContent("...loading");
     const resolvedSpan = await waitFor(()=>getByTestId('resolved'));
     expect(resolvedSpan).toHaveTextContent("hello");
+    expect(axiosMock.get).toHaveBeenCalledTimes(1);
+    expect(axiosMock.get).toHaveBeenCalledWith(url);
 })
