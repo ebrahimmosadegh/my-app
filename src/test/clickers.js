@@ -6,14 +6,14 @@ const Clickers =()=>{
     }
     const decrease = ()=>{
         setTimeout(()=>{
-            setCount(count - 1);
+            setCount(count-1);
         },500)
     }
     return(
         <div>
             <button onClick={increase}>up</button>
             <button onClick={decrease}>down</button>
-            <span>
+            <span data-testid="count">
                 {count}
             </span>
         </div>
